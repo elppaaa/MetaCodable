@@ -5,7 +5,6 @@ import Testing
 @testable import PluginCore
 
 struct ContentAtTests {
-
     @Test
     func misuseOnNonEnumDeclaration() throws {
         assertMacroExpansion(
@@ -36,7 +35,7 @@ struct ContentAtTests {
                 .init(
                     id: ContentAt.misuseID,
                     message:
-                        "@ContentAt must be used in combination with @CodedAt",
+                        "@ContentAt must be used in combination with @CodedAt, @DecodedAt or @EncodedAt",
                     line: 1, column: 1,
                     fixIts: [
                         .init(message: "Remove @ContentAt attribute")

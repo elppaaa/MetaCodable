@@ -77,6 +77,8 @@ Supercharge `Swift`'s `Codable` implementations with macros.
 ### Strategies
 
 - ``CodedAt(_:)``
+- ``DecodedAt(_:)``
+- ``EncodedAt(_:)``
 - ``CodedIn(_:)``
 - ``CodedAs()``
 - ``CodedAs(_:_:)``
@@ -110,6 +112,7 @@ Supercharge `Swift`'s `Codable` implementations with macros.
 - ``IgnoreEncoding()``
 - ``IgnoreEncoding(if:)-1iuvv``
 - ``IgnoreEncoding(if:)-7toka``
+- ``IgnoreEncoding(basedOn:)``
 - ``IgnoreCodingInitialized()``
 
 ### Dynamic Coding

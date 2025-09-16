@@ -6,7 +6,6 @@ import Testing
 @testable import PluginCore
 
 struct CodedAsEnumTests {
-
     @Test
     func misuseOnNonCaseDeclaration() throws {
         assertMacroExpansion(
@@ -174,7 +173,7 @@ struct CodedAsEnumTests {
                 .init(
                     id: CodedAs.misuseID,
                     message:
-                        "@CodedAs must be used in combination with @CodedAt",
+                        "@CodedAs must be used in combination with @CodedAt, @DecodedAt or @EncodedAt",
                     line: 1, column: 1,
                     fixIts: [
                         .init(message: "Remove @CodedAs attribute")

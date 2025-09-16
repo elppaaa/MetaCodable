@@ -17,7 +17,8 @@ struct StrategyFinder {
     /// - Parameter decl: The declaration to extract strategies from.
     init(decl: some AttributableDeclSyntax) {
         guard
-            let attr: any PeerAttribute = Codable(from: decl) ?? ConformDecodable(from: decl) ?? ConformEncodable(from: decl),
+            let attr: any PeerAttribute = Codable(from: decl)
+                ?? ConformDecodable(from: decl) ?? ConformEncodable(from: decl),
             let arguments = attr.node.arguments?.as(LabeledExprListSyntax.self),
             let arg = arguments.first(where: {
                 $0.label?.text == "commonStrategies"
@@ -79,18 +80,19 @@ extension Registration where Var: DefaultPropertyVariable {
         from decl: some AttributableDeclSyntax
     ) -> Registration<Decl, Key, StrategyVariable<Var.Initialization>> {
         let finder = StrategyFinder(decl: decl)
-        let inStrategy =
-            finder.valueCodingStrategies.first { strategy in
-                strategy.trimmedDescription
-                    == self.variable.type.trimmedDescription
-            } != nil
+        let type = finder.valueCodingStrategies.first { strategy in
+            return strategy.trimmedDescription
+                == self.variable.type.trimmedDescription
+                || strategy.trimmedDescription
+                    == self.variable.type.wrappedType.trimmedDescription
+        }
 
         let newVariable: AnyPropertyVariable<Var.Initialization>
-        if inStrategy {
+        if let type = type {
             newVariable =
                 HelperCodedVariable(
                     base: self.variable,
-                    options: .helper("ValueCoder<\(variable.type)>()")
+                    options: .helper("ValueCoder<\(type)>()")
                 ).any
         } else {
             newVariable = self.variable.any
